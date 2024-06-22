@@ -31,13 +31,13 @@ def preprocess_dataset(
     ) -> str:
         default_system_prompt = "너의 역할은 대화 내용을 요약해주는 요약 전문가야. 다음 사람들의 대화 내용을 보고 적절히 요약해줘."
         prompt = f"""### Instruction:
-        {default_system_prompt}
+{default_system_prompt}
 
-        ### Input:
-        {data.strip()}
+### Input:
+{data.strip()}
 
-        ### Response:
-        """.strip()
+### Response:
+""".strip()
         return prompt
 
     df["prompt"] = df[config.data_column_name].apply(generate_prompt)
