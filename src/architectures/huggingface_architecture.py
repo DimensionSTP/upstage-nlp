@@ -26,6 +26,7 @@ class HuggingFaceArchitecture(LightningModule):
         is_causal: bool,
         is_preprocessed: bool,
         custom_data_encoder_path: str,
+        left_padding: bool,
         strategy: str,
         lr: float,
         weight_decay: float,
@@ -43,9 +44,7 @@ class HuggingFaceArchitecture(LightningModule):
         self.pretrained_model_name = pretrained_model_name
         self.is_causal = is_causal
         if is_preprocessed:
-            data_encoder_path = (
-                f"{custom_data_encoder_path}/{self.pretrained_model_name}"
-            )
+            data_encoder_path = custom_data_encoder_path
         else:
             data_encoder_path = self.pretrained_model_name
         self.data_encoder = AutoTokenizer.from_pretrained(
@@ -54,6 +53,8 @@ class HuggingFaceArchitecture(LightningModule):
         )
         if self.data_encoder.pad_token_id is None:
             self.data_encoder.pad_token_id = self.data_encoder.eos_token_id
+        if left_padding:
+            self.data_encoder.padding_side = "left"
         self.strategy = strategy
         self.lr = lr
         self.weight_decay = weight_decay

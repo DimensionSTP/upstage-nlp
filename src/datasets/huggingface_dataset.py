@@ -22,6 +22,7 @@ class UpStageDialoguesDataset(Dataset):
         batch_size: int,
         pretrained_model_name: str,
         custom_data_encoder_path: str,
+        left_padding: bool,
         data_max_length: int,
         target_max_length: int,
     ) -> None:
@@ -35,10 +36,8 @@ class UpStageDialoguesDataset(Dataset):
         self.num_devices = num_devices
         self.batch_size = batch_size
         self.pretrained_model_name = pretrained_model_name
-        if self.is_preprocessed:
-            data_encoder_path = (
-                f"{custom_data_encoder_path}/{self.pretrained_model_name}"
-            )
+        if is_preprocessed:
+            data_encoder_path = custom_data_encoder_path
         else:
             data_encoder_path = self.pretrained_model_name
         self.data_encoder = AutoTokenizer.from_pretrained(
@@ -47,6 +46,8 @@ class UpStageDialoguesDataset(Dataset):
         )
         if self.data_encoder.pad_token_id is None:
             self.data_encoder.pad_token_id = self.data_encoder.eos_token_id
+        if left_padding:
+            self.data_encoder.padding_side = "left"
         dataset = self.get_dataset()
         self.datas = dataset["datas"]
         self.labels = dataset["labels"]
