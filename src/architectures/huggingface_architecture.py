@@ -219,6 +219,9 @@ class HuggingFaceArchitecture(LightningModule):
         encoded = batch["encoded"]
         generation = self.model.generate(
             encoded=encoded,
+            options=self.options,
+            target_max_length=self.target_max_length,
+            target_min_length=self.target_min_length,
         )
         decoded_generation = self.data_encoder.batch_decode(
             sequences=generation,
