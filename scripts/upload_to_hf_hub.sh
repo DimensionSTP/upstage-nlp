@@ -15,6 +15,7 @@ target_max_length=256
 precision="bf16"
 batch_size=16
 epoch=10
+model_detail="OPEN-SOLAR-KO-10.7B"
 
 python $path/upload_to_hf_hub.py \
     is_causal=$is_causal \
@@ -30,4 +31,5 @@ python $path/upload_to_hf_hub.py \
     target_max_length=$target_max_length \
     precision=$precision \
     batch_size=$batch_size \
-    epoch=$epoch
+    epoch=$epoch \
+    model_detail=$model_detail
