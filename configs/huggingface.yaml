@@ -100,7 +100,8 @@ pred_name: ${save_detail}-epoch=${epoch}
 submission_name: ${save_detail}-epoch=${epoch}
 
 user_name: ${oc.env:USER_NAME}
-upload_tag: dialogue-summaries-Ko-trans
+model_detail: OPEN-SOLAR-KO-10.7B
+upload_tag: dialogue-summaries-Korean-translation
 num_safetensors: 10
 
 run_name: ${project_name}
