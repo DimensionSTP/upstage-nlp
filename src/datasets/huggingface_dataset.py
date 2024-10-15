@@ -186,17 +186,17 @@ class UpStageDialoguesDataset(Dataset):
 {default_system_prompt} 
 
 ### Input:
-{data.strip()}
+{data}
 
 ### Response:
-""".strip()
+"""
         else:
             prompt = f"""### Instruction:
 {default_system_prompt} 
 
 ### Input:
-{data.strip()}
+{data}
 
 ### Response:
-{label} """.strip()
+{label} """
         return prompt
