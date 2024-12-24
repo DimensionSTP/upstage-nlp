@@ -6,7 +6,6 @@ from torch import nn
 
 from transformers import (
     BitsAndBytesConfig,
-    PreTrainedModel,
     AutoModelForSeq2SeqLM,
     AutoModelForCausalLM,
     AutoTokenizer,
@@ -123,7 +122,7 @@ class HuggingFaceModel(nn.Module):
         )
         return output
 
-    def get_model(self) -> PreTrainedModel:
+    def get_model(self) -> Union[AutoModelForSeq2SeqLM, AutoModelForCausalLM]:
         if not self.is_causal:
             model = AutoModelForSeq2SeqLM.from_pretrained(
                 self.model_path,
